@@ -1,0 +1,31 @@
+{
+  "name": "paratree",
+  "version": "0.1.0",
+  "description": "Parse paragraph into linked structure of sentences and words, for node.js. Edit",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raitucarp/paratree.git"
+  },
+  "keywords": [
+    "paragraph",
+    "words",
+    "sentences"
+  ],
+  "author": "Ribhararnus Pracutiar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raitucarp/paratree/issues"
+  },
+  "homepage": "https://github.com/raitucarp/paratree#readme",
+  "devDependencies": {
+    "ava": "^0.18.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "uuid": "^3.0.1"
+  }
+}
