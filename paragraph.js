@@ -3,9 +3,9 @@ const uuidV4 = require('uuid/v4');
 const Sentence = require('./sentence');
 
 class Text {
-  constructor(text) {
+  constructor(parent, text) {
     let paragraphs = _.chain(text).split('\n').compact()
-      .map((text, index) => new Paragraph(text, index))
+      .map((text, index) => new Paragraph(parent, text, index))
       .value();
 
     return paragraphs;
@@ -13,9 +13,10 @@ class Text {
 }
 
 let sentences = new WeakMap();
-
+let parent = new WeakMap();
 class Paragraph {
-  constructor(text, index = 0) {
+  constructor($parent, text, index = 0) {
+    parent.set(this, $parent);
     this.id = uuidV4();
     this.index = index;
     this.text = text;
@@ -23,7 +24,29 @@ class Paragraph {
     return this;
   }
 
-  get sentencesObject() {
+  parent() {
+    return parent.get(this);
+  }
+
+  findSentenceById(id) {
+    return _.find(this.sentencesCollection, {id});
+  }
+
+  findSentenceByIndex(index) {
+    return _.find(this.sentencesCollection, {index});
+  }
+
+  next() {
+    let index = this.index;
+    return this.parent().findParagraphByIndex(index + 1);
+  }
+
+  prev() {
+    let index = this.index;
+    return this.parent().findParagraphByIndex(index - 1);
+  }
+
+  get sentencesCollection() {
     return sentences.get(this);
   }
 
@@ -36,10 +59,11 @@ class Paragraph {
   }
 
   parseSentence() {
-    let {id: paragraphId, text} = this;
+    let paragraph = this;
+    let {text} = paragraph;
     this.sentences = _.chain(text).split('. ').compact()
       .map((text, index) =>
-        new Sentence(paragraphId, text, index)
+        new Sentence(paragraph, text, index)
       ).value();
   }
 }
