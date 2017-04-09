@@ -10,15 +10,31 @@ class Paratree {
   }
 
   parse() {
-    this.paragraphs = new Text(this.text);
+    this.paragraphs = new Text(this, this.text);
 
     this.sentences = _.chain(this.paragraphs)
-      .map(paragraph => paragraph.sentencesObject)
+      .map(paragraph => paragraph.sentencesCollection)
       .flatten().value();
 
     this.words = _.chain(this.sentences)
-      .map(sentence => sentence.wordsObject)
+      .map(sentence => sentence.wordsCollection)
       .flatten().value();
+  }
+
+  findParagraphById(id) {
+    return _.find(this.paragraphs, {id});
+  }
+
+  findParagraphByIndex(index) {
+    return _.find(this.paragraphs, {index});
+  }
+
+  findSentenceById(id) {
+    return _.find(this.sentences, {id});
+  }
+
+  findWordById(id) {
+    return _.find(this.words, {id});
   }
 
   uniqueWords() {
