@@ -1,5 +1,6 @@
 import test from 'ava';
 import Paratree from './';
+import _ from 'lodash';
 
 let text = `Bottlenose dolphins living off the coast of southwest Australia have a dilemma. The local octopuses are tasty and packed with protein, but they are also intelligent, fierce fighters. It's not enough to bite the cephalopods' heads off, because octopus nervous systems are so decentralized that their legs can continue the battle even when detached. Nevertheless, the dolphins have persisted in their pursuit of tentacled meals. Now, after years of observation with video, scientists have seen dozens of examples of the dolphins' elaborate octopus hunting strategy.
 
@@ -14,12 +15,37 @@ test('Should has 4 paragraphs', t => {
   t.is(para.paragraphs.length, 4);
 });
 
+test('Paragraphs should has same parent', t => {
+  para.paragraphs.forEach(paragraph => {
+    let parent = paragraph.parent();
+    t.is(parent, para);
+  });
+});
+
 test('Should has 21 sentences', t => {
   t.is(para.sentences.length, 21);
 });
 
+test('Sentences should has parent and equals with its siblings.', t => {
+  para.paragraphs.forEach(paragraph => {
+    paragraph.sentencesCollection.forEach(sentence => {
+      t.is(sentence.parent(), paragraph);
+    });
+  });
+});
+
 test('Should has 389 words', t => {
   t.is(para.words.length, 389);
+});
+
+test('Words should has parent and equals with its siblings.', t => {
+  para.paragraphs.forEach(paragraph => {
+    paragraph.sentencesCollection.forEach(sentence => {
+      sentence.wordsCollection.forEach(word => {
+        t.is(word.parent(), sentence);
+      });
+    });
+  });
 });
 
 test('Should has 223 unique words', t => {
@@ -52,4 +78,108 @@ test('Should has more than 100 average characters length per sentence', t => {
 
 test('Should has more than 5 char average length in word', t => {
   t.truthy(para.averageWordLength() > 5);
+});
+
+test('Find paragraph by id\'s equals to sample data', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let {id} = sampleParagraph;
+  t.is(sampleParagraph, para.findParagraphById(id));
+});
+
+test('Find paragraph by index\'s result equals to sample data', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let {index} = sampleParagraph;
+  t.is(sampleParagraph, para.findParagraphByIndex(index));
+});
+
+test('Find sentence by id\'s result equals to sample data ', t => {
+  let sampleSentence = _.sample(para.sentences);
+  let {id} = sampleSentence;
+
+  t.is(sampleSentence, para.findSentenceById(id));
+  t.is(sampleSentence, sampleSentence.parent().findSentenceById(id));
+});
+
+test('Find sentence by index\'s result equals to sample data', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let sampleSentence = _.sample(sampleParagraph.sentencesCollection);
+  let {index} = sampleSentence;
+
+  t.is(sampleSentence, sampleParagraph.findSentenceByIndex(index));
+});
+
+test('Find word by id\'s result equals to sample data ', t => {
+  let sampleWord = _.sample(para.words);
+  let {id} = sampleWord;
+
+  t.is(sampleWord, para.findWordById(id));
+  t.is(sampleWord, sampleWord.parent().findWordById(id));
+});
+
+test('Find word by index\'s result equals to sample data ', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let sampleSentence = _.sample(sampleParagraph.sentencesCollection);
+  let sampleWord = _.sample(sampleSentence.wordsCollection);
+  let {index} = sampleWord;
+
+  t.is(sampleWord, sampleSentence.findWordByIndex(index));
+});
+
+test('Capable to navigate to the next or previous paragraph', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let {index} = sampleParagraph;
+
+  let nextParagraph = sampleParagraph.next();
+  let prevParagraph = sampleParagraph.prev();
+
+  if (nextParagraph) {
+    let {index: nextParagraphIndex} = nextParagraph;
+    t.is(nextParagraphIndex, index + 1);
+  }
+
+  if (prevParagraph) {
+    let {index: prevParagraphIndex} = prevParagraph;
+    t.is(prevParagraphIndex, index - 1);
+  }
+
+});
+
+
+test('Capable able to navigate to the next or previous sentence in a paragraph', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let sampleSentence = _.sample(sampleParagraph.sentencesCollection);
+  let {index} = sampleSentence;
+
+  let nextSentence = sampleSentence.next();
+  let prevSentence = sampleSentence.prev();
+
+  if (nextSentence) {
+    let {index: nextSentenceIndex} = nextSentence;
+    t.is(nextSentenceIndex, index + 1);
+  }
+
+  if (prevSentence) {
+    let {index: prevSentenceIndex} = prevSentence;
+    t.is(prevSentenceIndex, index - 1);
+  }
+});
+
+test('Capable to navigate to the next or previous words in a sentence', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let sampleSentence = _.sample(sampleParagraph.sentencesCollection);
+  let sampleWord = _.sample(sampleSentence.wordsCollection);
+  let {index} = sampleWord;
+
+  let nextWord = sampleWord.next();
+  let prevWord = sampleWord.prev();
+
+  if (nextWord) {
+    let {index: nextWordIndex} = nextWord;
+    t.is(nextWordIndex, index + 1);
+  }
+
+  if (prevWord) {
+    let {index: prevWordIndex} = prevWord;
+    t.is(prevWordIndex, index - 1);
+  }
 });
