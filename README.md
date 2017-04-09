@@ -1,14 +1,14 @@
 # Paratree
 
-Utility for parsing paragraph into linked structure of sentences and words, for node.js. Also include builtin method for paragraphs, sentences, and words.
+Utility for parsing paragraph into linked structure of sentences and words, for node.js. Also include builtin method to navigate and get detail information for paragraphs, sentences, and words.
 
-# Install
+## Install
 
 ```
 npm install paratree --save
 ```
 
-# Usage
+## Usage
 
 ```javascript
 const Paratree = require('paratree');
@@ -37,6 +37,10 @@ console.log(para.uniqueWords())
 
 //
 ```
+
+## Docs
+
+Coming soon..
 
 # License
 
