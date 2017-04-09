@@ -1,6 +1,6 @@
 {
   "name": "paratree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parse paragraph into linked structure of sentences and words, for node.js. Edit",
   "main": "index.js",
   "scripts": {
