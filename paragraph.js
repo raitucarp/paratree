@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const uuidV4 = require('uuid/v4');
 const Sentence = require('./sentence');
+const Data = require('./data');
 
 class Text {
   constructor(parent, text) {
@@ -21,6 +22,7 @@ class Paragraph {
     this.index = index;
     this.text = text;
     this.parseSentence();
+    this.data = new Data();
     return this;
   }
 

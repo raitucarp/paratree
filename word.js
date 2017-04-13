@@ -1,4 +1,5 @@
 const uuidV4 = require('uuid/v4');
+const Data = require('./data');
 
 let parent = new WeakMap();
 
@@ -10,6 +11,7 @@ class Word {
     this.sentenceId = sentence.id;
     this.index = index;
     this.text = text;
+    this.data = new Data();
     return this;
   }
 

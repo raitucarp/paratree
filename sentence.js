@@ -1,6 +1,7 @@
 const uuidV4 = require('uuid/v4');
 const _ = require('lodash');
 const Word = require('./word');
+const Data = require('./data');
 
 
 let words = new WeakMap();
@@ -14,6 +15,7 @@ class Sentence {
     this.index = index;
     this.paragraphId = paragraph.id;
     this.text = text;
+    this.data = new Data();
     this.parseWords();
     return this;
   }
