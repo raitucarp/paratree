@@ -183,3 +183,79 @@ test('Capable to navigate to the next or previous words in a sentence', t => {
     t.is(prevWordIndex, index - 1);
   }
 });
+
+
+test('Do data operation to a paragraph', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let id = sampleParagraph.id;
+  
+  t.is(sampleParagraph, para.findParagraphById(id));
+  
+  let label = 'What the fuck';
+  let startTime = new Date();
+  let randomData = [234, 341];
+  
+  sampleParagraph.data.add('label', label);
+  sampleParagraph.data.add('start time', startTime);
+  sampleParagraph.data.add('random data', randomData);
+  
+  t.is(sampleParagraph.data.get('label'), label);
+  t.is(sampleParagraph.data.get('label'), 
+    para.findParagraphById(id).data.get('label'));
+  t.is(sampleParagraph.data.get('start time'), startTime);
+  t.is(sampleParagraph.data.get('random data'), randomData);
+  
+  sampleParagraph.data.delete('random data');
+  t.falsy(sampleParagraph.data.get('random data'));
+});
+
+test('Do data operation to a sentence', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let sampleSentence = _.sample(sampleParagraph.sentencesCollection);
+  let id = sampleSentence.id;
+  
+  t.is(sampleSentence, sampleParagraph.findSentenceById(id));
+  
+  let label = 'What the fuck';
+  let startTime = new Date();
+  let randomData = [234, 341];
+  
+  sampleSentence.data.add('label', label);
+  sampleSentence.data.add('start time', startTime);
+  sampleSentence.data.add('random data', randomData);
+  
+  t.is(sampleSentence.data.get('label'), label);
+  t.is(sampleSentence.data.get('label'), 
+    sampleParagraph.findSentenceById(id).data.get('label'));
+  t.is(sampleSentence.data.get('start time'), startTime);
+  t.is(sampleSentence.data.get('random data'), randomData);
+  
+  sampleSentence.data.delete('random data');
+  t.falsy(sampleSentence.data.get('random data'));
+});
+
+test('Do data operation to a word', t => {
+  let sampleParagraph = _.sample(para.paragraphs);
+  let sampleSentence = _.sample(sampleParagraph.sentencesCollection);
+  let sampleWord = _.sample(sampleSentence.wordsCollection);
+  let id = sampleWord.id;
+  
+  t.is(sampleWord, sampleSentence.findWordById(id));
+  
+  let label = 'What the fuck';
+  let startTime = new Date();
+  let randomData = [234, 341];
+  
+  sampleWord.data.add('label', label);
+  sampleWord.data.add('start time', startTime);
+  sampleWord.data.add('random data', randomData);
+  
+  t.is(sampleWord.data.get('label'), label);
+  t.is(sampleWord.data.get('label'), 
+    sampleSentence.findWordById(id).data.get('label'));
+  t.is(sampleWord.data.get('start time'), startTime);
+  t.is(sampleWord.data.get('random data'), randomData);
+  
+  sampleWord.data.delete('random data');
+  t.falsy(sampleWord.data.get('random data'));
+});
