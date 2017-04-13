@@ -5,18 +5,18 @@ const {Text} = require('./paragraph');
 class Paratree {
   constructor(text) {
     this.text = text;
-    this.parse();
+    this.paragraphs= new Text(this, this.text);
     return this;
   }
-
-  parse() {
-    this.paragraphs = new Text(this, this.text);
-
-    this.sentences = _.chain(this.paragraphs)
+  
+  get sentences() {
+    return _.chain(this.paragraphs)
       .map(paragraph => paragraph.sentencesCollection)
       .flatten().value();
-
-    this.words = _.chain(this.sentences)
+  }
+  
+  get words() {
+    return _.chain(this.sentences)
       .map(sentence => sentence.wordsCollection)
       .flatten().value();
   }
