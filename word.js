@@ -1,5 +1,6 @@
 const uuidV4 = require('uuid/v4');
 const Data = require('./data');
+const _ = require('lodash');
 
 let parent = new WeakMap();
 
@@ -12,6 +13,7 @@ class Word {
     this.index = index;
     this.text = text;
     this.data = new Data();
+    this.clean = _.replace(this.text, /((?![0-9a-zA-Z\'\-]).)/ig, '');
     return this;
   }
 
