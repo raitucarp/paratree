@@ -39,7 +39,7 @@ class Paratree {
 
   uniqueWords() {
     return _.chain(this.words)
-      .map(word => word.text.replace(/((?![0-9a-zA-Z\']).)/ig, ''))
+      .map(word => word.clean)
       .map(_.lowerCase).sort().uniq().compact().value();
   }
 
@@ -81,7 +81,7 @@ class Paratree {
 
   wordOccurences() {
     return _.chain(this.words)
-      .map(word => word.text.replace(/((?![0-9a-zA-Z\']).)/ig, ''))
+      .map(word => word.clean)
       .map(_.lowerCase).compact().groupBy(o => o)
       .map((v, k) => new Object({word: k, occurence: v.length}))
       .sortBy('occurence')
