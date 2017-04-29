@@ -1,12 +1,23 @@
 const _ = require('lodash');
-const {Text} = require('./paragraph');
+const { Text } = require('./lib/paragraph');
+const Data = require('./lib/data');
+const uuidV4 = require('uuid/v4');
 
+const data = new WeakMap();
 
 class Paratree {
   constructor(text) {
+    // add private data
+    data.set(this, new Data());
+    
+    this.id = uuidV4();
     this.text = text;
     this.paragraphs= new Text(this, this.text);
     return this;
+  }
+  
+  get data() {
+    return data.get(this);
   }
   
   get sentences() {
