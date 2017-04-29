@@ -15,6 +15,17 @@ test('Should has 4 paragraphs', t => {
   t.is(para.paragraphs.length, 4);
 });
 
+test('Should has an id', t => {
+  t.truthy(para.id);
+});
+
+test('Should capable add, and get a data', t => {
+  const answer = 42;
+  para.data.add('the meaning of life', 42);
+  
+  t.is(para.data.get('the meaning of life'), answer);
+});
+
 test('Paragraphs should has same parent', t => {
   para.paragraphs.forEach(paragraph => {
     let parent = paragraph.parent();
