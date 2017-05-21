@@ -19,6 +19,15 @@ test('Should has an id', t => {
   t.truthy(para.id);
 });
 
+test('add method on text', t => {
+  let id = para.id;
+  para.method('getId', function() {
+    return this.id;
+  });
+  
+  t.is(para.getId(), id);
+});
+
 test('Should capable add, and get a data', t => {
   const answer = 42;
   para.data.add('the meaning of life', 42);
