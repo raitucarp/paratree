@@ -21,11 +21,31 @@ test('Should has an id', t => {
 
 test('add method on text', t => {
   let id = para.id;
-  para.method('getId', function() {
+  para.addMethod('getId', function() {
     return this.id;
   });
   
   t.is(para.getId(), id);
+});
+
+test('applyMethods should add more than one method', t => {
+  let id = para.id;
+  let text = para.text;
+  
+  const methods = {
+    getId: function() {
+      return this.id;
+    },
+
+    getText: function() {
+      return this.text;
+    }
+  };
+  
+  para.applyMethods(methods);
+  
+  t.is(para.getId(), id);
+  t.is(para.getText(), text);
 });
 
 test('Should capable add, and get a data', t => {
