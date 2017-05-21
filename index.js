@@ -16,8 +16,14 @@ class Paratree {
     return this;
   }
   
-  method(name, func) {
+  addMethod(name, func) {
     this[name] = func.bind(this);
+  }
+  
+  applyMethods(obj) {
+    for (let x in obj) {
+      this[x] = obj[x];
+    }
   }
   
   get data() {
