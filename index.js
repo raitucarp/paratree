@@ -16,6 +16,10 @@ class Paratree {
     return this;
   }
   
+  method(name, func) {
+    this[name] = func.bind(this);
+  }
+  
   get data() {
     return data.get(this);
   }
