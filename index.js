@@ -13,7 +13,6 @@ class Paratree {
     this.id = uuidV4();
     this.text = text;
     this.paragraphs= new Text(this, this.text);
-    return this;
   }
   
   addMethod(name, func) {
