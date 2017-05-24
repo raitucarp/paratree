@@ -19,6 +19,30 @@ test('Should has an id', t => {
   t.truthy(para.id);
 });
 
+
+test('Assign should work out of the box', t => {
+  class A {
+    constructor() {
+      this.b = 'test';
+    }
+
+    getId() {
+      return this.id;
+    }
+    
+    getText() {
+      return this.text;
+    }
+  }
+  
+  let id = para.id;
+  let text = para.text;
+  
+  para.assign('A', A);
+  t.is(para.A.getId(), id);
+  t.is(para.A.getText(), text);
+});
+
 test('add method on text', t => {
   let id = para.id;
   para.addMethod('getId', function() {
