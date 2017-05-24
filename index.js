@@ -15,6 +15,18 @@ class Paratree {
     this.paragraphs= new Text(this, this.text);
   }
   
+  assign(name, $class) {
+    let me = this;
+    const cl = class extends $class {
+      constructor() {
+        super();
+        Object.assign(this, me);
+      }
+    };
+    
+    this[name] = new cl();
+  }
+  
   addMethod(name, func) {
     this[name] = func.bind(this);
   }
