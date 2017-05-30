@@ -74,7 +74,7 @@ test('applyMethods should add more than one method', t => {
 
 test('Should capable add, and get a data', t => {
   const answer = 42;
-  para.data.add('the meaning of life', 42);
+  para.data.set('the meaning of life', 42);
   
   t.is(para.data.get('the meaning of life'), answer);
 });
@@ -259,9 +259,9 @@ test('Do data operation to a paragraph', t => {
   let startTime = new Date();
   let randomData = [234, 341];
   
-  sampleParagraph.data.add('label', label);
-  sampleParagraph.data.add('start time', startTime);
-  sampleParagraph.data.add('random data', randomData);
+  sampleParagraph.data.set('label', label);
+  sampleParagraph.data.set('start time', startTime);
+  sampleParagraph.data.set('random data', randomData);
   
   t.is(sampleParagraph.data.get('label'), label);
   t.is(sampleParagraph.data.get('label'), 
@@ -269,7 +269,7 @@ test('Do data operation to a paragraph', t => {
   t.is(sampleParagraph.data.get('start time'), startTime);
   t.is(sampleParagraph.data.get('random data'), randomData);
   
-  sampleParagraph.data.delete('random data');
+  sampleParagraph.data.unset('random data');
   t.falsy(sampleParagraph.data.get('random data'));
 });
 
@@ -284,9 +284,9 @@ test('Do data operation to a sentence', t => {
   let startTime = new Date();
   let randomData = [234, 341];
   
-  sampleSentence.data.add('label', label);
-  sampleSentence.data.add('start time', startTime);
-  sampleSentence.data.add('random data', randomData);
+  sampleSentence.data.set('label', label);
+  sampleSentence.data.set('start time', startTime);
+  sampleSentence.data.set('random data', randomData);
   
   t.is(sampleSentence.data.get('label'), label);
   t.is(sampleSentence.data.get('label'), 
@@ -294,7 +294,7 @@ test('Do data operation to a sentence', t => {
   t.is(sampleSentence.data.get('start time'), startTime);
   t.is(sampleSentence.data.get('random data'), randomData);
   
-  sampleSentence.data.delete('random data');
+  sampleSentence.data.unset('random data');
   t.falsy(sampleSentence.data.get('random data'));
 });
 
@@ -310,9 +310,9 @@ test('Do data operation to a word', t => {
   let startTime = new Date();
   let randomData = [234, 341];
   
-  sampleWord.data.add('label', label);
-  sampleWord.data.add('start time', startTime);
-  sampleWord.data.add('random data', randomData);
+  sampleWord.data.set('label', label);
+  sampleWord.data.set('start time', startTime);
+  sampleWord.data.set('random data', randomData);
   
   t.is(sampleWord.data.get('label'), label);
   t.is(sampleWord.data.get('label'), 
@@ -320,6 +320,6 @@ test('Do data operation to a word', t => {
   t.is(sampleWord.data.get('start time'), startTime);
   t.is(sampleWord.data.get('random data'), randomData);
   
-  sampleWord.data.delete('random data');
+  sampleWord.data.unset('random data');
   t.falsy(sampleWord.data.get('random data'));
 });
